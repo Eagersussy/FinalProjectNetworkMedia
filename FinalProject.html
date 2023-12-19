@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body, h1, h2, h3, p, ul, ol {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Times New Roman', sans-serif;
+            line-height: 1.6;
+            color: #242424;
+            background-color: #f8f8f8;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            background-color: #DDEBCC;
+            color: rgb(38, 38, 38)000;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .rname {
+            font-size: 2em;
+        }
+        .snav div {
+            cursor: pointer;
+            color: #ccc;
+            margin: 0 10px;
+        }
+        .snav div:hover {
+            color: #fff;
+            background-color: #00000050;
+        }
+        .recipe-content {
+            background-color: #fff;
+            color:#333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        ul, ol {
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+nav {
+  background-color: #506846;
+  color:#ccc;
+  text-align:center;
+  padding:10px 0;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items:center;
+}
+.navitems{
+    padding:50px;
+    border-bottom:solid 1px #ccc;
+    
+}
+.navitems:hover{
+    color:#fff;
+    background-color: #303f2a;
+    
+}
+.rname {
+
+  border:2px;
+  color:#DDEBCC;
+  border-color:#565656;
+  background-color:#303f2a6c;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  
+}
+.snav{
+  border:2px;
+  border-color:#565656;
+  background-color:#303f2a6c;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+main {
+  background-color: #3960A8;
+}
+footer {
+  background-color: rgba(164, 200, 110, 0.5);
+}
+body {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 75px 1fr 1fr 100px;
+  grid-template-areas:
+    "nav nav nav nav nav"
+    "header header header header header"
+    "main main main main main"
+    "footer footer footer footer footer"
+    
+}
+nav {
+  grid-area: nav;
+}
+header {
+  grid-area: header;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  grid-template-rows:auto 1fr 1fr 25px;
+  grid-template-areas:
+  "rname rname rname rname"
+  "rname rname rname rname"
+  "rname rname rname rname"
+  "snav snav snav snav"
+  ;
+background-image: url('fondoheader.jpg'); 
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+position:relative;
+
+}
+.rname{
+  grid-area:rname;
+  text-align:center;
+}
+.snav{
+grid-area:snav;
+}
+main {
+  grid-area: main;
+}
+footer {
+  grid-area: footer;
+}
+@media (min-width: 700px) {
+  body {
+    grid-template-rows: 1fr 1fr 1fr 100px;   
+    grid-template-columns: 200px repeat(4, 1fr);
+    grid-template-areas:
+      "nav header header header header"
+      "nav main main main main"
+      "nav main main main main"
+      "nav footer footer footer footer"
+  } 
+}
+.recipe-content {
+            padding: 20px;
+            color: #323232;
+        }
+
+        .ingredients,
+        .steps,
+        .end-result,
+        .help {
+            display: none;
+        }
+
+        .snav div {
+            cursor: pointer;
+        }
+ @media (max-width: 700px) {
+            .snav div {
+                display: block;
+                margin: 10px 0;
+            }
+            nav{
+                flex-direction: row;
+                padding:0;
+                margin:0;
+                justify-content: left;
+            }
+        }
+        
+</style>
+</head>
+<body>
+  <nav>
+    <div class="navitems" onclick="changeRecipe('Spanish Omelette')">Spanish Omelette</div>
+    <div class="navitems" onclick="changeRecipe('Ham Croquettes')">Ham Croquettes</div>
+    <div class="navitems" onclick="changeRecipe('Valencian Paella')">Valencian Paella</div>
+    <div class="navitems" onclick="changeRecipe('Cocido Madrileño')">Cocido Madrileño</div>
+    <div class="navitems" onclick="changeRecipe('Asturian Fabada')">Asturian Fabada</div>
+    <div class="navitems" onclick="changeRecipe('Pisto')">Pisto</div>
+</nav>
+<header>
+  <div class="container">
+      <div class="rname" id="recipeName">
+          Spanish Omelette
+      </div>
+      <div class="snav">
+          <div class="item1" onclick="showContent('ingredients')">Ingredients</div>
+          <div class="item2" onclick="showContent('steps')">Steps</div>
+          <div class="item3" onclick="showContent('end-result')">End Result</div>
+          <div class="item4" onclick="showContent('help')">Help</div>
+      </div>
+  </div>
+</header>
+<div class="container">
+  <main class="recipe-content">
+      <!-- Ingredients -->
+      <div class="ingredients">
+          <h2>Ingredients:</h2>
+          <ul>
+              <li>4 large eggs</li>
+              <li>2 medium potatoes, peeled and sliced</li>
+              <li>1 onion, finely chopped</li>
+              <li>Salt and pepper to taste</li>
+              <li>Olive oil for frying</li>
+          </ul>
+      </div>
+      <!-- Steps -->
+      <div class="steps">
+          <h2>Steps:</h2>
+          <ol>
+              <li>Heat olive oil in a pan over medium heat.</li>
+              <li>Add sliced potatoes and cook until golden brown.</li>
+              <li>Add chopped onions and cook until softened.</li>
+              <li>In a bowl, beat eggs and season with salt and pepper.</li>
+              <li>Pour the egg mixture over the potatoes and onions.</li>
+              <li>Cook until the edges set, then flip and cook the other side.</li>
+              <li>Slide the omelette onto a plate and serve.</li>
+          </ol>
+      </div>
+      <!-- End Result -->
+      <div class="end-result">
+          <h2>End Result:</h2>
+          <p>A delicious Spanish omelette ready to be enjoyed!</p>
+          <img src="tortilla de patata.jpg" width="300" height="300" alt="Spanish Omelette">
+      </div>
+      <!-- Help -->
+      <div class="help">
+          <h2>Help:</h2>
+          <p>If you have any questions, please contact us at help@example.com.</p>
+      </div>
+  </main>
+</div>
+<footer>
+  Spanish Recipes
+</footer>
+<script>
+  function showContent(contentType) {
+      document.querySelectorAll('.recipe-content > div').forEach(div => {
+          div.style.display = 'none';
+      });
+      document.querySelector(`.${contentType}`).style.display = 'block';
+  }
+
+  function changeRecipe(recipe) {
+
+      document.getElementById('recipeName').textContent = recipe;
+
+      switch (recipe) {
+          case 'Spanish Omelette':
+              // Ingredients
+              document.querySelector('.ingredients ul').innerHTML = `
+                  <li>4 large eggs</li>
+                  <li>2 medium potatoes, peeled and sliced</li>
+                  <li>1 onion, finely chopped</li>
+                  <li>Salt and pepper to taste</li>
+                  <li>Olive oil for frying</li>
+              `;
+              // Steps
+              document.querySelector('.steps ol').innerHTML = `
+                  <li>Heat olive oil in a pan over medium heat.</li>
+                  <li>Add sliced potatoes and cook until golden brown.</li>
+                  <li>Add chopped onions and cook until softened.</li>
+                  <li>In a bowl, beat eggs and season with salt and pepper.</li>
+                  <li>Pour the egg mixture over the potatoes and onions.</li>
+                  <li>Cook until the edges set, then flip and cook the other side.</li>
+                  <li>Slide the omelette onto a plate and serve.</li>
+              `;
+              // End Result
+              document.querySelector('.end-result p').textContent = 
+              'A delicious Spanish omelette ready to be enjoyed!';
+              document.querySelector('.end-result img').src = 'tortilla de patata.jpg';
+              document.querySelector('.end-result img').alt = 'Spanish Omelette';
+              break;
+
+          case 'Ham Croquettes':
+              // Ingredients
+              document.querySelector('.ingredients ul').innerHTML = `
+                  <li>1 cup cooked ham, finely chopped</li>
+                  <li>1 cup milk</li>
+                  <li>4 tablespoons butter</li>
+                  <li>1 cup all-purpose flour</li>
+                  <li>Salt and pepper to taste</li>
+              `;
+              // Steps
+              document.querySelector('.steps ol').innerHTML = `
+                  <li>In a saucepan, melt butter over medium heat.</li>
+                  <li>Add flour and cook, stirring constantly, until it forms a smooth paste.</li>
+                  <li>Gradually add milk, continuing to stir until the mixture thickens.</li>
+                  <li>Add chopped ham and season with salt and pepper.</li>
+                  <li>Spread the mixture in a dish and refrigerate until firm.</li>
+                  <li>Cut the mixture into small rectangles, coat with breadcrumbs, and deep fry until golden brown.</li>
+                  <li>Serve the croquettes while they are still hot.</li>
+              `;
+              // End Result
+              document.querySelector('.end-result p').textContent = 'Delicious ham croquettes ready to be enjoyed!';
+              document.querySelector('.end-result img').src = 'croquetas de jamón.jpg';
+              document.querySelector('.end-result img').alt = 'Ham Croquettes';
+              break;
+
+          case 'Valencian Paella':
+              // Ingredients
+              document.querySelector('.ingredients ul').innerHTML = `
+                  <li>2 cups bomba rice</li>
+                  <li>1 pound chicken, cut into pieces</li>
+                  <li>1/2 pound rabbit, cut into pieces</li>
+                  <li>1/2 pound green beans, trimmed</li>
+                  <li>1/2 cup tomato, grated</li>
+                  <li>1/4 cup olive oil</li>
+                  <li>1 teaspoon saffron threads</li>
+                  <li>4 cups chicken broth</li>
+                  <li>Salt to taste</li>
+              `;
+              // Steps
+              document.querySelector('.steps ol').innerHTML = `
+                  <li>Heat olive oil in a paella pan over medium heat.</li>
+                  <li>Add chicken and rabbit pieces, and cook until browned.</li>
+                  <li>Add green beans and cook for a few minutes.</li>
+                  <li>Stir in grated tomato and saffron threads.</li>
+                  <li>Add bomba rice and stir to coat with the mixture.</li>
+                  <li>Slowly add chicken broth, season with salt, and simmer until rice is cooked and broth is absorbed.</li>
+                  <li>Let it rest for a few minutes before serving.</li>
+              `;
+              // End Result
+              document.querySelector('.end-result p').textContent = 'Authentic Valencian paella ready to be enjoyed!';
+              document.querySelector('.end-result img').src = 'paella valenciana.jpg';
+              document.querySelector('.end-result img').alt = 'Valencian Paella';
+              break;
+
+          case 'Cocido Madrileño':
+              // Ingredients
+              document.querySelector('.ingredients ul').innerHTML = `
+                  <li>1 pound chickpeas</li>
+                  <li>1 pound beef, cut into pieces</li>
+                  <li>1/2 pound chorizo sausage</li>
+                  <li>1/2 pound blood sausage</li>
+                  <li>2 potatoes, peeled and diced</li>
+                  <li>2 carrots, peeled and sliced</li>
+                  <li>1 onion, chopped</li>
+                  <li>2 cloves garlic, minced</li>
+                  <li>1 bay leaf</li>
+                  <li>1 teaspoon paprika</li>
+                  <li>Salt to taste</li>
+              `;
+              // Steps
+              document.querySelector('.steps ol').innerHTML = `
+                  <li>Soak chickpeas overnight in water.</li>
+                  <li>In a large pot, combine chickpeas, beef, chorizo, blood sausage, potatoes, carrots, onion, garlic, bay leaf, and paprika.</li>
+                  <li>Add enough water to cover the ingredients, bring to a boil, then simmer until chickpeas and meat are tender.</li>
+                  <li>Season with salt to taste.</li>
+                  <li>Serve the cocido in separate courses: first the broth with noodles, then the chickpeas and meat, and finally, the vegetables.</li>
+              `;
+              // End Result
+              document.querySelector('.end-result p').textContent = 'Hearty Cocido Madrileño ready to be enjoyed!';
+              document.querySelector('.end-result img').src = 'cocido madrileñoo.webp';
+              document.querySelector('.end-result img').alt = 'Cocido Madrileño';
+              break;
+
+          case 'Asturian Fabada':
+              // Ingredients
+              document.querySelector('.ingredients ul').innerHTML = `
+                  <li>1 pound dried white beans</li>
+                  <li>1/2 pound chorizo sausage</li>
+                  <li>1/2 pound blood sausage</li>
+                  <li>1/2 pound pork belly, diced</li>
+                  <li>1 onion, chopped</li>
+                  <li>2 cloves garlic, minced</li>
+                  <li>1 bay leaf</li>
+                  <li>1 teaspoon paprika</li>
+                  <li>Salt to taste</li>
+              `;
+              // Steps
+              document.querySelector('.steps ol').innerHTML = `
+                  <li>Soak white beans overnight in water.</li>
+                  <li>In a large pot, combine soaked beans, chorizo, blood sausage, pork belly, onion, garlic, bay leaf, and paprika.</li>
+                  <li>Add enough water to cover the ingredients, bring to a boil, then simmer until beans are tender.</li>
+                  <li>Season with salt to taste.</li>
+                  <li>Serve the fabada hot.</li>
+              `;
+              // End Result
+              document.querySelector('.end-result p').textContent = 'Savor the traditional flavors of Asturian Fabada!';
+              document.querySelector('.end-result img').src = 'fabada asturiana.jpg';
+              document.querySelector('.end-result img').alt = 'Asturian Fabada';
+              break;
+
+          case 'Pisto':
+              // Ingredients
+              document.querySelector('.ingredients ul').innerHTML = `
+                  <li>2 tablespoons olive oil</li>
+                  <li>1 onion, finely chopped</li>
+                  <li>2 cloves garlic, minced</li>
+                  <li>1 red bell pepper, diced</li>
+                  <li>1 green bell pepper, diced</li>
+                  <li>2 zucchinis, diced</li>
+                  <li>4 ripe tomatoes, chopped</li>
+                  <li>4 eggs</li>
+                  <li>Salt and pepper to taste</li>
+              `;
+              // Steps
+              document.querySelector('.steps ol').innerHTML = `
+                  <li>Heat olive oil in a pan over medium heat.</li>
+                  <li>Add chopped onion and garlic, sauté until softened.</li>
+                  <li>Add diced red and green bell peppers, continue to sauté.</li>
+                  <li>Add diced zucchinis and cook until all vegetables are tender.</li>
+                  <li>Stir in chopped tomatoes and cook until they break down.</li>
+                  <li>Make wells in the mixture and crack eggs into them.</li>
+                  <li>Cover and cook until eggs are done to your liking.</li>
+                  <li>Season with salt and pepper, and serve hot.</li>
+              `;
+              // End Result
+              document.querySelector('.end-result p').textContent = 'Enjoy the delicious and colorful Pisto!';
+              document.querySelector('.end-result img').src = 'pisto.jpg';
+              document.querySelector('.end-result img').alt = 'Pisto';
+              break;
+
+          default:
+              // Default content or handle an unknown recipe
+              break;
+      }
+  }
+</script>
+</body>
+</html>
